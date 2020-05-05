@@ -2,11 +2,10 @@ import jwt
 import os
 from time import time
 import json
+from supersecretserver import CLIENT_SECRET, CLIENT_KEY
 
 
 def generate_jwt():
-    CLIENT_KEY = os.environ.get("CLIENT_KEY")
-    CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
     data = {
         "token": jwt.encode(
             {
