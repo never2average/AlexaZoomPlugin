@@ -13,7 +13,7 @@ def main():
 
 class CreateJWT(Resource):
     def get(self):
-        return generate_jwt()
+        return jsonify(generate_jwt())
 
 
 api.add_resource(CreateJWT, "/jwt/create")

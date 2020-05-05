@@ -6,7 +6,7 @@ from supersecretserver import CLIENT_SECRET, CLIENT_KEY
 
 
 def generate_jwt():
-    data = {
+    return {
         "token": jwt.encode(
             {
                 "aud": None,
@@ -16,7 +16,6 @@ def generate_jwt():
             }, CLIENT_SECRET
         ).decode('utf-8')
     }
-    return json.dumps(data)
 
 if __name__ == "__main__":
     print(generate_jwt())
