@@ -21,10 +21,10 @@ def listmeetings(pageno=1, userid="foo@bar.com", jwt=""):
     today_s_meetings = []
     for i in data["meetings"]:
         current_time = datetime.now(timezone.utc)
-        meeting_time = parse(i["created_at"])
+        meeting_time = parse(i["start_time"])
         next_day = current_time+timedelta(hours=24)
         if meeting_time >= current_time and meeting_time <= next_day:
-            today_s_meetings.append(i) 
+            today_s_meetings.append(i)
     data["meetings"] = today_s_meetings
     data["statusCode"] = response.status_code
     return data
