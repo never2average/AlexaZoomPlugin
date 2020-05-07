@@ -25,6 +25,32 @@ def listmeetings(pageno=1, userid="foo@bar.com", jwt=""):
         next_day = current_time+timedelta(hours=24)
         if meeting_time >= current_time and meeting_time <= next_day:
             today_s_meetings.append(i)
+    for i in today_s_meetings:
+        i["registrants"] = list_registrants(i["id"], i["uuid"], jwt)
     data["meetings"] = today_s_meetings
     data["statusCode"] = response.status_code
     return data
+
+
+def list_registrants(meeting_id, uuid, token):
+    url = "https://api.zoom.us/v2/meetings/{}/registrants"
+    url = url.format(meeting_id)
+    querystring = {
+        "occurrence_id":uuid,
+        "status":"approved",
+        "page_size":"30",
+        "page_number":"1"
+    }
+    headers = {
+        'Accept': "application/json, application/xml",
+        'Content-Type': "application/json",
+        'Authorization': token
+        }
+
+    response = requests.get(url, headers=headers, params=querystring)
+
+    try:
+        return response.json()["registrants"]
+    except:
+        return response.json()
+    
