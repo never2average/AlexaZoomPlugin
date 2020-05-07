@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil.parser import parse
 
 
@@ -20,7 +20,10 @@ def listmeetings(pageno=1, userid="foo@bar.com", jwt=""):
     data = response.json()
     today_s_meetings = []
     for i in data["meetings"]:
-        if parse(i["created_at"]) == datetime.today():
+        if (
+            parse(i["created_at"]) >= datetime.now() and 
+            parse(i["created_at"]) <= datetime.now()+timedelta(days=1)
+        ):
             today_s_meetings.append(i) 
     data["meetings"] = today_s_meetings
     data["statusCode"] = response.status_code
