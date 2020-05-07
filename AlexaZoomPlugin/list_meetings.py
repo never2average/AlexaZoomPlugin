@@ -20,7 +20,7 @@ def listmeetings(pageno=1, userid="foo@bar.com", jwt=""):
     data = response.json()
     today_s_meetings = []
     for i in data["meetings"]:
-        if parse(i["created_at"]) == datetime.now():
+        if parse(i["created_at"]) == datetime.today():
             today_s_meetings.append(i) 
     data["meetings"] = today_s_meetings
     data["statusCode"] = response.status_code
