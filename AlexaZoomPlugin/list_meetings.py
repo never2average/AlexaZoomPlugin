@@ -1,6 +1,7 @@
 import requests
 from datetime import datetime, timedelta, timezone
 from dateutil.parser import parse
+from time import sleep
 
 
 def listmeetings(pageno=1, userid="foo@bar.com", jwt=""):
@@ -27,6 +28,7 @@ def listmeetings(pageno=1, userid="foo@bar.com", jwt=""):
             today_s_meetings.append(i)
     for i in today_s_meetings:
         i["registrants"] = list_registrants(i["id"], i["uuid"], jwt)
+        sleep(1)
     data["meetings"] = today_s_meetings
     data["statusCode"] = response.status_code
     return data
