@@ -31,7 +31,7 @@ class StartMeetings(Resource):
     def put(self):
         action = request.args["action"]
         jwt = request.headers.get("Authorization")
-        meetingObj = request.json()
+        meetingObj = request.get_json()
         return jsonify(change_meeting_status(jwt, action, meetingObj))
 
 
@@ -39,7 +39,7 @@ class CreateMeetings(Resource):
     def post(self):
         uuid = request.args["userid"]
         jwt = request.headers.get("Authorization")
-        data = request.json()
+        data = request.get_json()
         return jsonify(create_meetings(uuid, jwt, data))
 
 
