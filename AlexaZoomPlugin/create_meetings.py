@@ -1,4 +1,5 @@
 import requests
+import json
 
 
 def create_meetings(uuid, jwt, data):
@@ -28,7 +29,11 @@ def create_meetings(uuid, jwt, data):
         'Content-Type': "application/json",
         'Authorization': jwt
     }
-    response = requests.post(url, data=payload, headers=headers)
+    response = requests.post(
+        url,
+        data=json.dumps(payload),
+        headers=headers
+    )
     response = response.json()
     response["statusCode"] = 200
     return response
