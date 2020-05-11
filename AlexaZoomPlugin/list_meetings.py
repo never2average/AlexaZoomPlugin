@@ -4,7 +4,7 @@ from dateutil.parser import parse
 from time import sleep
 
 
-def listmeetings(pageno=1, userid="foo@bar.com", jwt=""):
+def list_meetings(pageno=1, userid="foo@bar.com", jwt=""):
     url = "https://api.zoom.us/v2/users/{}/meetings"
     url = url.format(userid)
     querystring = {
@@ -47,10 +47,8 @@ def list_registrants(meeting_id, uuid, token):
         'Accept': "application/json, application/xml",
         'Content-Type': "application/json",
         'Authorization': token
-        }
-
+    }
     response = requests.get(url, headers=headers, params=querystring)
-
     try:
         return response.json()["registrants"]
     except:
