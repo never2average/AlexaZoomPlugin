@@ -19,12 +19,16 @@ def list_meetings(pageno=1, userid="foo@bar.com", jwt=""):
     }
     response = requests.get(url, headers=headers, params=querystring)
     data = response.json()
+    print(data["meetings"][0])
     today_s_meetings = []
     for i in data["meetings"]:
-        current_time = datetime.now(timezone.utc)
-        meeting_time = parse(i["start_time"])
-        next_day = current_time+timedelta(hours=24)
-        if meeting_time >= current_time and meeting_time <= next_day:
+        if i["type"] == 3:
+            current_time = datetime.now(timezone.utc)
+            meeting_time = parse(i["start_time"])
+            next_day = current_time+timedelta(hours=24)
+            if meeting_time >= current_time and meeting_time <= next_day:
+                today_s_meetings.append(i)
+        else:
             today_s_meetings.append(i)
     for i in today_s_meetings:
         i["registrants"] = list_registrants(i["id"], i["uuid"], jwt)
