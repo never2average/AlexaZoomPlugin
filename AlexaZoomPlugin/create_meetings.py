@@ -17,13 +17,14 @@ def create_meetings(uuid, jwt, data):
             "approval_type": 0,
             "registration_type": 1,
             "registrants_email_notification": True
-        },
-        "recurrence": {
+        }
+    }
+    if data["meeting_type"] == 3 or data["meeting_type"] == 8:
+        payload["recurrence"] = {
             "type": data["recurrence_type"],
             "repeat_interval": data["repeat_interval"],
             "end_times": data["end_times"]
         }
-    }
 
     headers = {
         'Accept': "application/json, application/xml",
