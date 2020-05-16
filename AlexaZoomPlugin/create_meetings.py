@@ -20,7 +20,8 @@ def create_meetings(uuid, jwt, data):
         },
         "recurrence": {
             "type": data["recurrence_type"],
-            "repeat_interval": data["repeat_interval"]
+            "repeat_interval": data["repeat_interval"],
+            "end_times": data["end_times"]
         }
     }
 
