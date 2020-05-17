@@ -19,7 +19,6 @@ def list_meetings(pageno=1, userid="foo@bar.com", jwt=""):
     }
     response = requests.get(url, headers=headers, params=querystring)
     data = response.json()
-    print(data["meetings"][0])
     today_s_meetings = []
     for i in data["meetings"]:
         if i["type"] == 3:
